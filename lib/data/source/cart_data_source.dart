@@ -1,50 +1,45 @@
-import 'package:dio/dio.dart';
-import 'package:nike2/data/add_to_cart_response.dart';
 import 'package:nike2/data/cart_response.dart';
-
-
+// import 'package:nike2/data/cart_response.dart';
 
 abstract class ICartDataSource {
-  Future<AddToCartResponse> add(int productId);
-  Future<AddToCartResponse> changeCount(int cartItemId, int count);
-  Future<void> delete(int cartItemId);
-  Future<int> count();
-  Future<CartResponse> getAll();
+  void add(int productId, int count);
+  void changeCount(int cartItemId, int count);
+  void delete(int cartItemId);
+  int count();
+  CartResponse getAll();
 }
 
 class CartRemoteDataSource implements ICartDataSource {
-  final Dio httpClient;
-  CartRemoteDataSource(this.httpClient);
+  @override
+  final CartResponse cart = CartResponse([]);
 
   @override
-  Future<AddToCartResponse> add(int productId) async {
-    // TODO: implement add
-    final response =
-        await httpClient.post('cart/add', data: {"product_id": productId});
-    return AddToCartResponse.fromJson(response.data);
+  void add(int productId, int count) {
+    // cart.cartItems.
+    // return AddToCartResponse(productId, count);
   }
 
   @override
-  Future<AddToCartResponse> changeCount(int cartItemId, int count) async {
-    final response = await httpClient.post('cart/changeCount',
-        data: {'cart_item_id': cartItemId, 'count': count});
-    return AddToCartResponse.fromJson(response.data);
+  void changeCount(int productId, int count) {
+    for (var i = 0; i < cart.cartItems.length; i++) {
+      if (cart.cartItems[i].id == productId) {
+        cart.cartItems[i].count = count;
+      }
+    }
   }
 
   @override
-  Future<int> count() async {
-    final response = await httpClient.get('cart/count');
-    return response.data['count'];
+  void delete(int cartItemId) {
+    cart.cartItems.removeWhere((item) => item.id == cartItemId);
   }
 
   @override
-  Future<void> delete(int cartItemId) async {
-    await httpClient.post('cart/remove', data: {'cart_item_id': cartItemId});
+  int count() {
+    return cart.cartItems.length;
   }
 
   @override
-  Future<CartResponse> getAll() async {
-    final response = await httpClient.get('cart/list');
-    return CartResponse.fromJson(response.data);
+  getAll() {
+    return cart;
   }
 }

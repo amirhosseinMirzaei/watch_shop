@@ -1,12 +1,18 @@
-
-
 import 'package:nike2/data/cart_item.dart';
 
 class CartResponse {
   final List<CartItemEntity> cartItems;
-  int payablePrice;
-  int totalPrice;
-  int shippingCost;
+  int payablePrice = 0;
+  int totalPrice = 0;
+  int shippingCost = 0;
+
+  CartResponse(this.cartItems) {
+    for (var cartItem in cartItems) {
+      totalPrice += cartItem.product.previousPrice * cartItem.count;
+      payablePrice += cartItem.product.price * cartItem.count;
+    }
+    shippingCost = payablePrice >= 250000 ? 0 : 30000;
+  }
 
   CartResponse.fromJson(Map<String, dynamic> json)
       : cartItems = CartItemEntity.parseJsonArray(json['cart_items']),

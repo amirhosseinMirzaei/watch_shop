@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
     const defaultTextStyle = TextStyle(
         fontFamily: 'BYekan', color: LightThemeColor.primaryTextColor);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         dividerColor: LightThemeColor.secondaryTextColor,
