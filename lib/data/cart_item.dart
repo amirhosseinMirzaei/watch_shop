@@ -15,9 +15,9 @@ class CartItemEntity {
 
   static List<CartItemEntity> parseJsonArray(List<dynamic> jsonArray) {
     final List<CartItemEntity> cartItems = [];
-    jsonArray.forEach((element) {
+    for (var element in jsonArray) {
       cartItems.add(CartItemEntity.fromJson(element));
-    });
+    }
     return cartItems;
   }
 }

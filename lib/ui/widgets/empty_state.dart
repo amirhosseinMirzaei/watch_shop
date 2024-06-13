@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EmptyViewe extends StatelessWidget {
@@ -24,7 +23,7 @@ class EmptyViewe extends StatelessWidget {
               const EdgeInsets.only(right: 48, left: 48, top: 24, bottom: 16),
           child: Text(
             message,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
             textAlign: TextAlign.center,
           ),
         ),

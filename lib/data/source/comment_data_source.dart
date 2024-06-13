@@ -19,9 +19,9 @@ class CommentRemoteDataSource
     final response = await httpClient.get('comment/list?product_id=$productId');
     validateResponse(response);
     final List<CommentEntity> comments = [];
-    (response.data as List).forEach((element) {
+    for (var element in (response.data as List)) {
       comments.add(CommentEntity.fromJson(element));
-    });
+    }
     return comments;
   }
 }

@@ -83,13 +83,13 @@ class CommentItem extends StatelessWidget {
                   ),
                   Text(
                     data.email,
-                    style: themeData.textTheme.caption,
+                    style: themeData.textTheme.bodySmall,
                   )
                 ],
               ),
               Text(
                 data.date,
-                style: themeData.textTheme.caption,
+                style: themeData.textTheme.bodySmall,
               )
             ],
           ),

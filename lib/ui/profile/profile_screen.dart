@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:nike2/data/auth_info.dart';
 import 'package:nike2/data/rep/auth_repository.dart';
 import 'package:nike2/data/rep/cart_repository.dart';
@@ -12,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff262a35),
+      backgroundColor: const Color(0xff262a35),
       appBar: AppBar(
         title: const Text('پروفایل'),
       ),
@@ -25,8 +24,8 @@ class ProfileScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 32, bottom: 8),
-                    padding: EdgeInsets.all(8),
+                    margin: const EdgeInsets.only(top: 32, bottom: 8),
+                    padding: const EdgeInsets.all(8),
                     width: 65,
                     height: 65,
                     decoration: BoxDecoration(
@@ -48,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                   InkWell(
                     onTap: () {},
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                       height: 56,
                       child: const Row(
                         children: [
@@ -68,7 +67,7 @@ class ProfileScreen extends StatelessWidget {
                   InkWell(
                     onTap: () {},
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                       height: 56,
                       child: const Row(
                         children: [
@@ -96,14 +95,14 @@ class ProfileScreen extends StatelessWidget {
                                 textDirection: TextDirection.rtl,
                                 child: AlertDialog(
                                   title: const Text('خروج از حساب کاربری'),
-                                  content: Text(
+                                  content: const Text(
                                       'آیا میخواهیداز حساب خود خارج شوید؟ '),
                                   actions: [
                                     TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Text('خیر'),
+                                      child: const Text('خیر'),
                                     ),
                                     TextButton(
                                       onPressed: () {
@@ -112,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                                             .cartItemCartNotifier.value = 0;
                                         authRepository.signOut();
                                       },
-                                      child: Text('بله'),
+                                      child: const Text('بله'),
                                     )
                                   ],
                                 ),
@@ -127,7 +126,7 @@ class ProfileScreen extends StatelessWidget {
                       }
                     },
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                       height: 56,
                       child: Row(
                         children: [

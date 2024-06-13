@@ -11,7 +11,7 @@ import 'package:nike2/ui/widgets/errors.dart';
 import 'package:nike2/ui/widgets/sliders.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
         return homeBloc;
       },
       child: Scaffold(
-        backgroundColor: Color(0xff26272C),
+        backgroundColor: const Color(0xff26272C),
         body: SafeArea(
           child: BlocBuilder<HomeBloc, HomeState>(builder: ((context, state) {
             if (state is HomeSuccess) {
@@ -41,12 +41,12 @@ class HomeScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 'فروشگاه',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 7,
                               ),
                               Image.asset(
@@ -112,11 +112,10 @@ class _HorizontalProductList extends StatelessWidget {
   final GestureTapCallback onTap;
   final List<ProductEntity> products;
   const _HorizontalProductList({
-    Key? key,
     required this.title,
     required this.onTap,
     required this.products,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +126,7 @@ class _HorizontalProductList extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(title, style: Theme.of(context).textTheme.subtitle1),
+              Text(title, style: Theme.of(context).textTheme.titleMedium),
               TextButton(onPressed: onTap, child: const Text('مشاهده همه'))
             ],
           ),

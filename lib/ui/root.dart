@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:nike2/data/rep/cart_repository.dart';
 import 'package:nike2/ui/Home/home.dart';
 import 'package:nike2/ui/cart/cart.dart';
@@ -20,9 +19,9 @@ class RootScreen extends StatefulWidget {
 
 class _RootScreenState extends State<RootScreen> {
   int selectedScreenIndex = homeIndex;
-  GlobalKey<NavigatorState> _homeKey = GlobalKey();
-  GlobalKey<NavigatorState> _cartKey = GlobalKey();
-  GlobalKey<NavigatorState> _profileKey = GlobalKey();
+  final GlobalKey<NavigatorState> _homeKey = GlobalKey();
+  final GlobalKey<NavigatorState> _cartKey = GlobalKey();
+  final GlobalKey<NavigatorState> _profileKey = GlobalKey();
 
   final List<int> _history = [];
   late final map = {
@@ -49,8 +48,9 @@ class _RootScreenState extends State<RootScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+        onWillPop: _onWillPop,
         child: Scaffold(
-          backgroundColor: Color(0xff26272C),
+          backgroundColor: const Color(0xff26272C),
           body: IndexedStack(
             index: selectedScreenIndex,
             children: [
@@ -63,19 +63,19 @@ class _RootScreenState extends State<RootScreen> {
               _navigator(
                 _profileKey,
                 profileIndex,
-                ProfileScreen(),
+                const ProfileScreen(),
               )
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
             items: [
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.home), label: 'خانه'),
               BottomNavigationBarItem(
                   icon: Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      Icon(CupertinoIcons.cart),
+                      const Icon(CupertinoIcons.cart),
                       Positioned(
                         right: -10,
                         child: ValueListenableBuilder<int>(
@@ -89,7 +89,7 @@ class _RootScreenState extends State<RootScreen> {
                     ],
                   ),
                   label: 'سبدخرید'),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.person), label: 'پروفایل')
             ],
             currentIndex: selectedScreenIndex,
@@ -101,8 +101,7 @@ class _RootScreenState extends State<RootScreen> {
               });
             },
           ),
-        ),
-        onWillPop: _onWillPop);
+        ));
   }
 
   Widget _navigator(GlobalKey key, int index, Widget child) {

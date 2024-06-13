@@ -74,7 +74,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
                 true;
             emit(CartSuccess(successState.cartResponse));
 
-            await Future.delayed(Duration(milliseconds: 2000));
+            await Future.delayed(const Duration(milliseconds: 2000));
             final newCount = event is IncreaseCountButtonIsClicked
                 ? ++successState.cartResponse.cartItems[index].count
                 : --successState.cartResponse.cartItems[index].count;
@@ -118,10 +118,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     int totalPrice = 0;
     int payablePrice = 0;
     int shippingCost = 0;
-    cartResponse.cartItems.forEach((cartItem) {
+    for (var cartItem in cartResponse.cartItems) {
       totalPrice += cartItem.product.previousPrice * cartItem.count;
       payablePrice += cartItem.product.price * cartItem.count;
-    });
+    }
     shippingCost = payablePrice >= 250000 ? 0 : 30000;
     cartResponse.totalPrice = totalPrice;
     cartResponse.payablePrice = payablePrice;

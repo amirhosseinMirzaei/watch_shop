@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
+
+import 'package:nike2/common/api_keys.dart';
 import 'package:nike2/data/rep/auth_repository.dart';
-
 import 'package:nike2/theme.dart';
-
 import 'ui/root.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+  );
+  // initialize bindings to take thme to parse initializer
+  await Parse().initialize(
+    ApiKeys.applicationId,
+    ApiKeys.parseServerUrl,
+    clientKey: ApiKeys.clientKey,
+    autoSendSessionId: true,
+    debug: true,
+  );
   authRepository.loadAuthInfo();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override

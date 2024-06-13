@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:nike2/common/api_keys.dart';
+import 'package:nike2/common/exceptions.dart';
 import 'package:nike2/data/auth_info.dart';
-import 'package:nike2/data/common/constant.dart';
 import 'package:nike2/data/common/response_validator.dart';
-
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 abstract class IAuthDataSource {
   Future<AuthInfo> login(String username, String password);
+  Future<bool> logout();
   Future<AuthInfo> signUp(String username, String password);
   Future<AuthInfo> refreshToken(String token);
 }
@@ -13,46 +15,67 @@ abstract class IAuthDataSource {
 class AuthRemoteDataSource
     with HttpResponseValidator
     implements IAuthDataSource {
-  final Dio httpClient;
+  ParseUser? user;
 
-  AuthRemoteDataSource(this.httpClient);
   @override
   Future<AuthInfo> login(String username, String password) async {
-    final response = await httpClient.post("auth/token", data: {
-      "grant_type": "password",
-      "client_id": 2,
-      "client_secret": Constants.clientSecret,
-      "username": username,
-      "password": password
-    });
+    user = ParseUser(username, password, null);
+    final ParseResponse response = await user!.login();
 
-    validateResponse(response);
+    if (!response.success) throw AppException(message: response.error!.message);
 
-    return AuthInfo(response.data["access_token"],
-        response.data["refresh_token"], username);
+    final String? refreshToken =
+        (response.result as Map).keys.contains("refreshToken")
+            ? response.result["refreshToken"]
+            : null;
+
+    await Parse().initialize(
+      ApiKeys.applicationId,
+      ApiKeys.parseServerUrl,
+      clientKey: ApiKeys.clientKey,
+      autoSendSessionId: true,
+      sessionId: response.result["sessionToken"],
+      debug: true,
+    );
+
+    return AuthInfo(
+        response.result["sessionToken"],
+        // response.result["refreshToken"],
+        refreshToken,
+        username);
   }
 
+// not implemented
   @override
   Future<AuthInfo> refreshToken(String token) async {
-    final response = await httpClient.post("auth/token", data: {
-      "grant_type": "refresh_token",
-      "refresh_token": token,
-      "client_id": 2,
-      "client_secret": Constants.clientSecret
-    });
+    // final response = await httpClient.post("auth/token", data: {
+    //   "grant_type": "refreshToken",
+    //   "refreshToken": token,
+    //   "client_id": 2,
+    //   "client_secret": Constants.clientSecret
+    // });
+    final response = Response(requestOptions: RequestOptions());
 
     validateResponse(response);
 
     return AuthInfo(
-        response.data["access_token"], response.data["refresh_token"], '');
+        response.data["accessToken"], response.data["refreshToken"], '');
   }
 
   @override
   Future<AuthInfo> signUp(String username, String password) async {
-    final response = await httpClient
-        .post("user/register", data: {"email": username, "password": password});
-    validateResponse(response);
+
+    user = ParseUser(username, password, username);
+    final ParseResponse response = await user!.signUp();
+    if (!response.success) throw AppException(message: response.error!.message);
 
     return login(username, password);
   }
+
+  @override
+  Future<bool> logout() async {
+    final resp = await user!.logout();
+    return resp.success;
+  }
+
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nike2/data/product.dart';
 import 'package:nike2/data/rep/product_repository.dart';
@@ -30,9 +29,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff26272C),
+      backgroundColor: const Color(0xff26272C),
       appBar: AppBar(
-        backgroundColor: Color(0xff262a35),
+        backgroundColor: const Color(0xff262a35),
         title: const Text(' ساعت های ضد آب '),
       ),
       body: BlocProvider<ProductListBloc>(
@@ -72,17 +71,17 @@ class _ProductListScreenState extends State<ProductListScreen> {
                             context: context,
                             builder: (context) {
                               return Container(
-                                color: Color(0xff262a35),
+                                color: const Color(0xff262a35),
                                 height: 270,
                                 child: Padding(
-                                  padding: EdgeInsets.only(top: 24, bottom: 24),
+                                  padding: const EdgeInsets.only(top: 24, bottom: 24),
                                   child: Column(
                                     children: [
                                       Text(
                                         ' مرتب سازی',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6,
+                                            .titleLarge,
                                       ),
                                       Expanded(
                                         child: ListView.builder(
@@ -155,7 +154,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                       Text(
                                         ProductSort.names[state.sort],
                                         style:
-                                            Theme.of(context).textTheme.caption,
+                                            Theme.of(context).textTheme.bodySmall,
                                       )
                                     ],
                                   )

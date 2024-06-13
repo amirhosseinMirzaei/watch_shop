@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nike2/data/rep/auth_repository.dart';
@@ -7,7 +6,7 @@ import 'package:nike2/ui/auth/bloc/auth_bloc.dart';
 
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+  const AuthScreen({super.key});
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -179,10 +178,9 @@ class _AuthScreenState extends State<AuthScreen> {
 
 class _PasswordTextField extends StatefulWidget {
   const _PasswordTextField({
-    Key? key,
     required this.onBackground,
     required this.controller,
-  }) : super(key: key);
+  });
 
   final Color onBackground;
   final TextEditingController controller;

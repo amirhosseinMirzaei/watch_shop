@@ -18,7 +18,8 @@ class ImageLoadingService extends StatelessWidget {
     );
     if (borderRadius != null) {
       return ClipRRect(borderRadius: BorderRadius.circular(15), child: image);
-    } else
+    } else {
       return image;
+    }
   }
 }

@@ -16,7 +16,7 @@ class PaymentReceiptScreen extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('رسید پرداخت'),
+        title: const Text('رسید پرداخت'),
       ),
       body: BlocProvider<PaymentReceiptBloc>(
         create: (context) => PaymentReceiptBloc(orderRepository)
@@ -27,8 +27,8 @@ class PaymentReceiptScreen extends StatelessWidget {
               return Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(16),
-                    margin: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
+                    margin: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       border:
                           Border.all(color: themeData.dividerColor, width: 1),
@@ -40,7 +40,7 @@ class PaymentReceiptScreen extends StatelessWidget {
                           state.paymentReceiptData.purchaseSuccess
                               ? 'پرداخت با موفقیت انجام شد'
                               : 'پرداخت ناموفق',
-                          style: themeData.textTheme.headline6!
+                          style: themeData.textTheme.titleLarge!
                               .apply(color: themeData.colorScheme.primary),
                         ),
                         const SizedBox(
@@ -91,7 +91,7 @@ class PaymentReceiptScreen extends StatelessWidget {
                         Navigator.of(context)
                             .popUntil((route) => route.isFirst);
                       },
-                      child: Text('بازگشت به صفحه اصلی'))
+                      child: const Text('بازگشت به صفحه اصلی'))
                 ],
               );
             } else if (state is PaymentReceiptError) {
@@ -99,7 +99,7 @@ class PaymentReceiptScreen extends StatelessWidget {
                 child: Text(state.exception.message),
               );
             } else if (state is PaymentReceiptLoading) {
-              return Center(
+              return const Center(
                 child: CupertinoActivityIndicator(),
               );
             } else {

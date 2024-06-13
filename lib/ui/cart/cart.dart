@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nike2/data/rep/auth_repository.dart';
 import 'package:nike2/data/rep/cart_repository.dart';
-import 'package:nike2/theme.dart';
 import 'package:nike2/ui/auth/Auth.dart';
 import 'package:nike2/ui/cart/bloc/cart_bloc.dart';
 import 'package:nike2/ui/cart/cart_item.dart';
@@ -54,11 +53,11 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xff26272C),
+        backgroundColor: const Color(0xff26272C),
         appBar: AppBar(
-          backgroundColor: Color(0xff262a35),
+          backgroundColor: const Color(0xff262a35),
           centerTitle: true,
-          title: Text("سبد خرید"),
+          title: const Text("سبد خرید"),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Visibility(
@@ -176,9 +175,9 @@ class _CartScreenState extends State<CartScreen> {
                   callToAction: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AuthScreen()));
+                          builder: (context) => const AuthScreen()));
                     },
-                    child: Text(
+                    child: const Text(
                       'ورورد به حساب کاربری',
                       style: TextStyle(color: Color(0xff262a35)),
                     ),

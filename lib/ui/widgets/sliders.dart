@@ -55,7 +55,6 @@ class BannerSlider extends StatelessWidget {
 class _Slide extends StatelessWidget {
   final BannerEntity banner;
   const _Slide({
-    super.key,
     required this.banner,
   });
 

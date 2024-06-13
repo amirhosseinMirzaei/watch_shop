@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nike2/common/utils.dart';
 import 'package:nike2/theme.dart';
@@ -19,16 +18,16 @@ class PriceInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 24, 8, 0),
+          padding: const EdgeInsets.fromLTRB(0, 24, 8, 0),
           child: Text(
             'جزییات خرید',
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
         Container(
           margin: const EdgeInsets.fromLTRB(8, 8, 8, 32),
           decoration: BoxDecoration(
-              color: Color(0xff262a35),
+              color: const Color(0xff262a35),
               borderRadius: BorderRadiusDirectional.circular(2),
               boxShadow: [
                 BoxShadow(

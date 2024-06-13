@@ -21,7 +21,7 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  StreamSubscription<ProductState>? stateSubscription = null;
+  StreamSubscription<ProductState>? stateSubscription;
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           final bloc = ProductBloc(cartRepository);
           stateSubscription = bloc.stream.listen((state) {
             if (state is ProductAddToCartSuccess) {
-              _scaffoldKey.currentState?.showSnackBar(SnackBar(
+              _scaffoldKey.currentState?.showSnackBar(const SnackBar(
                 content: Text('با موفقیت ثبت شد'),
               ));
             } else if (state is ProductAddToCartError) {
@@ -52,7 +52,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         child: ScaffoldMessenger(
           key: _scaffoldKey,
           child: Scaffold(
-            backgroundColor: Color(0xff262a35),
+            backgroundColor: const Color(0xff262a35),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
             floatingActionButton: SizedBox(
@@ -65,10 +65,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             .add(CartAddButtonIsClicked(widget.product.id));
                       },
                       label: state is ProductAddToCartButtonLoading
-                          ? CupertinoActivityIndicator(
+                          ? const CupertinoActivityIndicator(
                               color: Colors.white,
                             )
-                          : Text('افزودن به سبد خرید'));
+                          : const Text('افزودن به سبد خرید'));
                 },
               ),
             ),
@@ -96,7 +96,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Expanded(
                                 child: Text(
                               widget.product.title,
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleLarge,
                             )),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -105,7 +105,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   widget.product.previousPrice.withPriceLabel,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .caption!
+                                      .bodySmall!
                                       .apply(
                                           decoration:
                                               TextDecoration.lineThrough),
@@ -130,9 +130,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           children: [
                             Text(
                               'نظرات کاربران',
-                              style: Theme.of(context).textTheme.subtitle1,
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
-                            TextButton(onPressed: () {}, child: Text('ثبت نظر'))
+                            TextButton(onPressed: () {}, child: const Text('ثبت نظر'))
                           ],
                         ),
                       ],

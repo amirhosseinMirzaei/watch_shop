@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike2/data/order.dart';
 import 'package:nike2/data/rep/order_repository.dart';
 import 'package:nike2/ui/cart/price_info.dart';
 import 'package:nike2/ui/payment_webview.dart';
@@ -15,7 +14,7 @@ class ShippingScreen extends StatefulWidget {
   final int shippingCost;
   final int totalPrice;
 
-  ShippingScreen(
+  const ShippingScreen(
       {super.key,
       required this.payablePrice,
       required this.shippingCost,
@@ -46,23 +45,23 @@ class _ShippingScreenState extends State<ShippingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Container(
+      floatingActionButton: SizedBox(
         width: MediaQuery.of(context).size.width - 50,
         child: FloatingActionButton.extended(
             backgroundColor: Colors.white,
-            splashColor: Color.fromARGB(0, 153, 112, 244),
+            splashColor: const Color.fromARGB(0, 153, 112, 244),
             isExtended: true,
             onPressed: () {},
-            label: Text(
+            label: const Text(
               'پرداخت آنلاین',
               style: TextStyle(color: Colors.black),
             )),
       ),
-      backgroundColor: Color(0xff26272C),
+      backgroundColor: const Color(0xff26272C),
       appBar: AppBar(
-        backgroundColor: Color(0xff26272C),
+        backgroundColor: const Color(0xff26272C),
         centerTitle: false,
-        title: Text('مشخصات مشتری '),
+        title: const Text('مشخصات مشتری '),
       ),
       body: BlocProvider<ShippingBloc>(
         create: (context) {
@@ -90,7 +89,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
           return bloc;
         },
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               TextField(
@@ -100,7 +99,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
                   'نام',
                   style: Theme.of(context)
                       .textTheme
-                      .caption!
+                      .bodySmall!
                       .copyWith(fontSize: 16),
                 )),
               ),
@@ -114,7 +113,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
                   ' نام خانوادگی',
                   style: Theme.of(context)
                       .textTheme
-                      .caption!
+                      .bodySmall!
                       .copyWith(fontSize: 16),
                 )),
               ),
@@ -128,7 +127,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
                   'شماره تماس',
                   style: Theme.of(context)
                       .textTheme
-                      .caption!
+                      .bodySmall!
                       .copyWith(fontSize: 16),
                 )),
               ),
@@ -142,7 +141,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
                   ' کد پستی',
                   style: Theme.of(context)
                       .textTheme
-                      .caption!
+                      .bodySmall!
                       .copyWith(fontSize: 16),
                 )),
               ),
@@ -156,7 +155,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
                   ' آدرس',
                   style: Theme.of(context)
                       .textTheme
-                      .caption!
+                      .bodySmall!
                       .copyWith(fontSize: 16),
                 )),
               ),
@@ -173,7 +172,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
                       ? const Center(
                           child: CupertinoActivityIndicator(),
                         )
-                      : Row(
+                      : const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             // OutlinedButton(

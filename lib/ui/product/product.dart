@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:nike2/common/utils.dart';
 import 'package:nike2/data/product.dart';
 import 'package:nike2/ui/product/details.dart';
@@ -74,7 +73,7 @@ class ProductItem extends StatelessWidget {
                     product.previousPrice.withPriceLabel,
                     style: Theme.of(context)
                         .textTheme
-                        .caption!
+                        .bodySmall!
                         .copyWith(decoration: TextDecoration.lineThrough),
                   ),
                 ),

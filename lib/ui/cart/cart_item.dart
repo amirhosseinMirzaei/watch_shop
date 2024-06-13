@@ -20,10 +20,10 @@ class CartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(4),
+      margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Color(0xff262a35),
+          color: const Color(0xff262a35),
           boxShadow: [
             BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 10)
           ]),
@@ -46,7 +46,7 @@ class CartItem extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       data.product.title,
-                      style: TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
                 )
@@ -61,7 +61,7 @@ class CartItem extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('تعداد'),
+                    const Text('تعداد'),
                     Row(
                       children: [
                         IconButton(
@@ -78,7 +78,7 @@ class CartItem extends StatelessWidget {
                               )
                             : Text(
                                 data.count.toString(),
-                                style: Theme.of(context).textTheme.headline6,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                         IconButton(
                           onPressed: onDecreaseButtonClick,
@@ -94,7 +94,7 @@ class CartItem extends StatelessWidget {
                   children: [
                     Text(
                       data.product.previousPrice.withPriceLabel.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: LightThemeColor.secondaryTextColor,
                           fontSize: 12,
                           decoration: TextDecoration.lineThrough),
@@ -116,7 +116,7 @@ class CartItem extends StatelessWidget {
                   width: MediaQuery.of(context).size.width - 20,
                   child: ElevatedButton(
                     onPressed: onDeleteButtonClick,
-                    child: Text('حذف'),
+                    child: const Text('حذف'),
                   ),
                 )
           // : TextButton(
