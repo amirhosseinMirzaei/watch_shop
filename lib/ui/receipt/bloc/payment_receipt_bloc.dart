@@ -1,5 +1,5 @@
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nike2/common/exceptions.dart';
 import 'package:nike2/data/payment_receipt.dart';

@@ -10,19 +10,19 @@ abstract class AuthState extends Equatable {
 }
 
 class AuthInitial extends AuthState {
-  const AuthInitial(bool isLoginMode) : super(isLoginMode);
+  const AuthInitial(super.isLoginMode);
 }
 
 class AuthError extends AuthState {
   final AppException exception;
-  const AuthError(bool isLoginMode, this.exception) : super(isLoginMode);
+  const AuthError(super.isLoginMode, this.exception);
 }
 
 class AuthLoading extends AuthState{
-  const AuthLoading(bool isLoginMode) : super(isLoginMode);
+  const AuthLoading(super.isLoginMode);
 
 }
 
 class AuthSuccess extends AuthState {
-  const AuthSuccess(bool isLoginMode) : super(isLoginMode);
+  const AuthSuccess(super.isLoginMode);
 }

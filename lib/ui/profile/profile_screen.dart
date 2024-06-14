@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nike2/data/auth_info.dart';
 import 'package:nike2/data/rep/auth_repository.dart';
 import 'package:nike2/data/rep/cart_repository.dart';
-import 'package:nike2/ui/auth/Auth.dart';
+import 'package:nike2/ui/auth/auth.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

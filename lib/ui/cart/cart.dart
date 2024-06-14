@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nike2/data/rep/auth_repository.dart';
 import 'package:nike2/data/rep/cart_repository.dart';
-import 'package:nike2/ui/auth/Auth.dart';
+import 'package:nike2/ui/auth/auth.dart';
 import 'package:nike2/ui/cart/bloc/cart_bloc.dart';
 import 'package:nike2/ui/cart/cart_item.dart';
 import 'package:nike2/ui/shipping/shipping.dart';

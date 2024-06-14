@@ -4,7 +4,6 @@ import 'package:nike2/data/rep/auth_repository.dart';
 import 'package:nike2/data/rep/cart_repository.dart';
 import 'package:nike2/ui/auth/bloc/auth_bloc.dart';
 
-
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
@@ -109,6 +108,8 @@ class _AuthScreenState extends State<AuthScreen> {
                       TextField(
                         controller: usernameController,
                         keyboardType: TextInputType.name,
+                        style:
+                            const TextStyle(color: onBackground, fontSize: 16),
                         decoration: const InputDecoration(
                           label: Text('نام کاربری'),
                         ),
@@ -194,6 +195,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: TextStyle(color: widget.onBackground, fontSize: 16),
       controller: widget.controller,
       keyboardType: TextInputType.visiblePassword,
       obscureText: obsecureText,

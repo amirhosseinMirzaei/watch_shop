@@ -22,16 +22,18 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   StreamSubscription<ProductState>? stateSubscription;
+
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey();
+
+  @override
+  void dispose() {
+    stateSubscription?.cancel();
+    _scaffoldKey.currentState?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    @override
-    void dispose() {
-      stateSubscription?.cancel();
-      _scaffoldKey.currentState?.dispose();
-      super.dispose();
-    }
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: BlocProvider<ProductBloc>(
@@ -83,7 +85,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   actions: [
                     IconButton(
                       onPressed: () {},
-                      icon: const Icon(CupertinoIcons.heart, color: Colors.black,),
+                      icon: const Icon(
+                        CupertinoIcons.heart,
+                        color: Colors.black,
+                      ),
                     )
                   ],
                 ),
