@@ -1,16 +1,43 @@
-# nike2
+# ShopApp
+A shop application with Flutter, using Provider as state management and parse-server back4app as backend.
 
-A new Flutter project.
+<div align="center">
+  <a>
+    <img src="screenshots/logo.png" alt="Icon" width="80" height="80">
+  </a>
+</div>
 
-## Getting Started
+<p>&nbsp;</p>
 
-This project is a starting point for a Flutter application.
+## Home screen
+You can explore and like products on home screen
+<p></p>
+<img src="screenshots/home.png" width="400">
+<p>&nbsp;</p>
 
-A few resources to get you started if this is your first Flutter project:
+## Details screen
+By clicking on each product, you are able to see its details
+<p></p>
+<img src="screenshots/detail.png" width="400">
+<p>&nbsp;</p>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Login screen
+When restarting app, you will automatically loged in by access token saved on your device
+<p></p>
+<img src="screenshots/login.png" width="400">
+<p>&nbsp;</p>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Cart screen
+You can add products to cart
+<p></p>
+<img src="screenshots/cart_emply.png" width="400">
+<p>&nbsp;</p>
+<p></p>
+<img src="screenshots/cart.png" width="400">
+<p>&nbsp;</p>
+
+## Order screen
+After you added products to your cart, then you can see, edit and purchase them here
+<p></p>
+<img src="screenshots/order.png" width="400">
+<p>&nbsp;</p>
