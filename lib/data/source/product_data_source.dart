@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:nike2/common/exceptions.dart';
 import 'package:nike2/data/product.dart';

@@ -5,6 +5,7 @@ import 'package:nike2/common/exceptions.dart';
 import 'package:nike2/data/auth_info.dart';
 import 'package:nike2/data/cart_response.dart';
 import 'package:nike2/data/rep/cart_repository.dart';
+import 'package:nike2/ui/product/bloc/product_bloc.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
@@ -63,7 +64,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       //
       else if (event is IncreaseCountButtonIsClicked ||
           event is DecreaseCartButtonIsClicked) {
-        int cartItemId = 0;
+        String cartItemId = '';
         if (event is IncreaseCountButtonIsClicked) {
           cartItemId = event.cartItemId;
         } else if (event is DecreaseCartButtonIsClicked) {
@@ -105,7 +106,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartLoading());
       }
 
-      final result = cartRepository.getAll();
+      final result = await cartRepository.getAll();
       if (result.cartItems.isEmpty) {
         emit(CartEmpty());
       } else {

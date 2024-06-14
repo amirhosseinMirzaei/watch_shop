@@ -24,7 +24,7 @@ class CartAuthInfoChanged extends CartEvent {
 }
 
 class CartDeleteButtonClicked extends CartEvent {
-  final int cartItemId;
+  final String cartItemId;
 
   const CartDeleteButtonClicked({required this.cartItemId});
   @override
@@ -33,7 +33,7 @@ class CartDeleteButtonClicked extends CartEvent {
 }
 
 class IncreaseCountButtonIsClicked extends CartEvent {
-  final int cartItemId;
+  final String cartItemId;
 
   const IncreaseCountButtonIsClicked({required this.cartItemId});
 
@@ -43,7 +43,7 @@ class IncreaseCountButtonIsClicked extends CartEvent {
 }
 
 class DecreaseCartButtonIsClicked extends CartEvent {
-  final int cartItemId;
+  final String cartItemId;
 
   const DecreaseCartButtonIsClicked({required this.cartItemId});
   @override

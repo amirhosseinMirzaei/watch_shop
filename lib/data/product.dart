@@ -18,6 +18,7 @@ class ProductEntity {
   final String title;
   final String imageUrl;
   final int price;
+  final String details;
   final int discount;
   final int previousPrice;
 
@@ -25,9 +26,9 @@ class ProductEntity {
       : id = object.get('objectId'),
         title = object.get('title'),
         imageUrl = object.get('imageUrl'),
-        price = object.get('previousPrice') == null
-            ? object.get('price') - object.get('discount')
-            : object.get('price'),
-        previousPrice = object.get('previousPrice') ?? object.get('price'),
+        previousPrice = object.get('price'),
+        price = object.get('price') -
+            object.get('price') * (object.get('discount') / 100),
+        details = object.get('details'),
         discount = object.get('discount');
 }

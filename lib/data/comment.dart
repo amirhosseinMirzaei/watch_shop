@@ -8,7 +8,7 @@ class CommentEntity {
   final String email;
 
   CommentEntity.fromObject(ParseObject object)
-      : id = object.get('id'),
+      : id = object.get('objectId'),
         title = object.get('title'),
         content = object.get('content'),
         date = object.get('date'),

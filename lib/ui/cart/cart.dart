@@ -84,121 +84,123 @@ class _CartScreenState extends State<CartScreen> {
                 )),
           ),
         ),
-        body: BlocProvider<CartBloc>(
-          create: (context) {
-            final bloc = CartBloc(cartRepository);
-            satateStreamSubscription = bloc.stream.listen((state) {
-              setState(() {
-                stateIsSuccess = state is CartSuccess;
-              });
-
-              if (_refreshController.isRefresh) {
-                if (state is CartSuccess) {
-                  _refreshController.refreshCompleted();
-                } else if (state is CartError) {
-                  _refreshController.refreshFailed();
+        body: Center(
+          child: BlocProvider<CartBloc>(
+            create: (context) {
+              final bloc = CartBloc(cartRepository);
+              satateStreamSubscription = bloc.stream.listen((state) {
+                setState(() {
+                  stateIsSuccess = state is CartSuccess;
+                });
+          
+                if (_refreshController.isRefresh) {
+                  if (state is CartSuccess) {
+                    _refreshController.refreshCompleted();
+                  } else if (state is CartError) {
+                    _refreshController.refreshFailed();
+                  }
                 }
-              }
-            });
-            cartBloc = bloc;
-            bloc.add(CartStarted(AuthRepository.authChangeNotifier.value));
-            return bloc;
-          },
-          child: BlocBuilder<CartBloc, CartState>(
-            builder: (context, state) {
-              if (state is CartLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is CartError) {
-                return Center(
-                  child: Text(state.exception.message),
-                );
-              } else if (state is CartSuccess) {
-                return SmartRefresher(
-                  header: const ClassicHeader(
-                    completeText: 'با موفقیت انجام شد',
-                    refreshingText: 'در حال بروز رسانی',
-                    idleText: 'برای بروزرسانی پایین بکشید',
-                    releaseText: 'رها کنید',
-                    failedText: 'خطای نامشخص',
-                    spacing: 2,
-                    completeIcon: Icon(
-                      CupertinoIcons.checkmark_circle,
-                      color: Colors.grey,
-                      size: 20,
-                    ),
-                  ),
-                  onRefresh: () {
-                    cartBloc?.add(CartStarted(
-                        AuthRepository.authChangeNotifier.value,
-                        isRefreshing: true));
-                  },
-                  controller: _refreshController,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.only(bottom: 65),
-                    itemBuilder: (context, index) {
-                      if (index < state.cartResponse.cartItems.length) {
-                        final data = state.cartResponse.cartItems[index];
-                        return CartItem(
-                          data: data,
-                          onDeleteButtonClick: () {
-                            cartBloc?.add(
-                                CartDeleteButtonClicked(cartItemId: data.id));
-                          },
-                          onIncreaseButtonClick: () {
-                            cartBloc?.add(IncreaseCountButtonIsClicked(
-                                cartItemId: data.id));
-                          },
-                          onDecreaseButtonClick: () {
-                            if (data.count > 1) {
-                              cartBloc?.add(DecreaseCartButtonIsClicked(
-                                  cartItemId: data.id));
-                            }
-                          },
-                        );
-                      } else {
-                        return PriceInfo(
-                          payablePrice: state.cartResponse.payablePrice,
-                          shippingCost: state.cartResponse.shippingCost,
-                          totalPrice: state.cartResponse.totalPrice,
-                        );
-                      }
-                    },
-                    itemCount: state.cartResponse.cartItems.length + 1,
-                  ),
-                );
-              } else if (state is CartAuthRequired) {
-                return EmptyViewe(
-                  message:
-                      'برای مشاهده سبد خرید ابتدا وارد حساب کاربری خود شوید',
-                  callToAction: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const AuthScreen()));
-                    },
-                    child: const Text(
-                      'ورورد به حساب کاربری',
-                      style: TextStyle(color: Color(0xff262a35)),
-                    ),
-                  ),
-                  image: SvgPicture.asset(
-                    'assets/img/auth_required.svg',
-                    width: 150,
-                  ),
-                );
-              } else if (state is CartEmpty) {
-                return EmptyViewe(
-                    message:
-                        'تا کنون هیج محصولی به سبد خرید خود اضافه نکرده اید',
-                    image: SvgPicture.asset(
-                      'assets/img/empty_cart.svg',
-                      width: 200,
-                    ));
-              } else {
-                throw Exception('current cart state is not valid');
-              }
+              });
+              cartBloc = bloc;
+              bloc.add(CartStarted(AuthRepository.authChangeNotifier.value));
+              return bloc;
             },
+            child: BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                if (state is CartLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is CartError) {
+                  return Center(
+                    child: Text(state.exception.message),
+                  );
+                } else if (state is CartSuccess) {
+                  return SmartRefresher(
+                    header: const ClassicHeader(
+                      completeText: 'با موفقیت انجام شد',
+                      refreshingText: 'در حال بروز رسانی',
+                      idleText: 'برای بروزرسانی پایین بکشید',
+                      releaseText: 'رها کنید',
+                      failedText: 'خطای نامشخص',
+                      spacing: 2,
+                      completeIcon: Icon(
+                        CupertinoIcons.checkmark_circle,
+                        color: Colors.grey,
+                        size: 20,
+                      ),
+                    ),
+                    onRefresh: () {
+                      cartBloc?.add(CartStarted(
+                          AuthRepository.authChangeNotifier.value,
+                          isRefreshing: true));
+                    },
+                    controller: _refreshController,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.only(bottom: 65),
+                      itemBuilder: (context, index) {
+                        if (index < state.cartResponse.cartItems.length) {
+                          final data = state.cartResponse.cartItems[index];
+                          return CartItem(
+                            data: data,
+                            onDeleteButtonClick: () {
+                              cartBloc?.add(
+                                  CartDeleteButtonClicked(cartItemId: data.id));
+                            },
+                            onIncreaseButtonClick: () {
+                              cartBloc?.add(IncreaseCountButtonIsClicked(
+                                  cartItemId: data.id));
+                            },
+                            onDecreaseButtonClick: () {
+                              if (data.count > 1) {
+                                cartBloc?.add(DecreaseCartButtonIsClicked(
+                                    cartItemId: data.id));
+                              }
+                            },
+                          );
+                        } else {
+                          return PriceInfo(
+                            payablePrice: state.cartResponse.payablePrice,
+                            shippingCost: state.cartResponse.shippingCost,
+                            totalPrice: state.cartResponse.totalPrice,
+                          );
+                        }
+                      },
+                      itemCount: state.cartResponse.cartItems.length + 1,
+                    ),
+                  );
+                } else if (state is CartAuthRequired) {
+                  return EmptyViewe(
+                    message:
+                        'برای مشاهده سبد خرید ابتدا وارد حساب کاربری خود شوید',
+                    callToAction: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const AuthScreen()));
+                      },
+                      child: const Text(
+                        'ورورد به حساب کاربری',
+                        style: TextStyle(color: Color(0xff262a35)),
+                      ),
+                    ),
+                    image: SvgPicture.asset(
+                      'assets/img/auth_required.svg',
+                      width: 150,
+                    ),
+                  );
+                } else if (state is CartEmpty) {
+                  return EmptyViewe(
+                      message:
+                          'تا کنون هیج محصولی به سبد خرید خود اضافه نکرده اید',
+                      image: SvgPicture.asset(
+                        'assets/img/empty_cart.svg',
+                        width: 200,
+                      ));
+                } else {
+                  throw Exception('current cart state is not valid');
+                }
+              },
+            ),
           ),
         )
 

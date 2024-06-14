@@ -82,8 +82,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   foregroundColor: LightThemeColor.primaryTextColor,
                   actions: [
                     IconButton(
-                        onPressed: () {},
-                        icon: const Icon(CupertinoIcons.heart))
+                      onPressed: () {},
+                      icon: const Icon(CupertinoIcons.heart, color: Colors.black,),
+                    )
                   ],
                 ),
                 SliverToBoxAdapter(
@@ -118,9 +119,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text(
-                          'این کتانی برای پیاده روی و دویدن مناسب است و هیچ فشار مخربی بر روی پا ندارد.',
-                          style: TextStyle(height: 1.4),
+                        Text(
+                          widget.product.details,
+                          style: const TextStyle(height: 1.4),
                         ),
                         const SizedBox(
                           height: 20,
@@ -132,7 +133,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               'نظرات کاربران',
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
-                            TextButton(onPressed: () {}, child: const Text('ثبت نظر'))
+                            TextButton(
+                                onPressed: () {}, child: const Text('ثبت نظر'))
                           ],
                         ),
                       ],

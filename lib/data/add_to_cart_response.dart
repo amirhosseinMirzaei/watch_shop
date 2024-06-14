@@ -1,10 +1,10 @@
 class AddToCartResponse {
   final String productId;
-  final int count;
+  int count;
 
   AddToCartResponse(this.productId, this.count);
 
-  AddToCartResponse.fromJson(Map<String, dynamic> json)
+  AddToCartResponse.fromObject(Map<String, dynamic> json)
       : productId = json['product_id'],
         count = json['count'];
 }

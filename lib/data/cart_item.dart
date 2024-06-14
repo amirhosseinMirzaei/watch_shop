@@ -3,10 +3,18 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class CartItemEntity {
   final ProductEntity product;
-  final int id;
+  final String id;
   int count;
   bool deleteButtonLoading = false;
   bool changeCountLoading = false;
+
+  CartItemEntity({
+    required this.product,
+    required this.id,
+    required this.count,
+    this.deleteButtonLoading = false,
+    this.changeCountLoading = false,
+  });
 
   CartItemEntity.fromObject(ParseObject object)
       : product = ProductEntity.fromObject(object.get('product')),

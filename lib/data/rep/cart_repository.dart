@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nike2/data/add_to_cart_response.dart';
 import 'package:nike2/data/cart_response.dart';
 import 'package:nike2/data/source/cart_data_source.dart';
+
 
 final cartRepository = CartRepository(CartRemoteDataSource());
 
@@ -12,25 +14,25 @@ class CartRepository implements ICartRepository {
 
   CartRepository(this.dataSource);
   @override
-  void add(String productId, count) => dataSource.add(productId, count);
+  Future<AddToCartResponse> add(String productId) => dataSource.add(productId);
 
   @override
-  void changeCount(String productId, int count) {
-    dataSource.changeCount(productId, count);
+  Future<AddToCartResponse> changeCount(String cartItemId, int count) {
+    return dataSource.changeCount(cartItemId, count);
   }
 
   @override
-  int count() {
-    final count = dataSource.count();
+  Future<int> count() async {
+    final count = await dataSource.count();
     cartItemCartNotifier.value = count;
     return count;
   }
 
   @override
-  void delete(int cartItemId) {
+  Future<void> delete(String cartItemId) {
     return dataSource.delete(cartItemId);
   }
 
   @override
-  CartResponse getAll() => dataSource.getAll();
+  Future<CartResponse> getAll() => dataSource.getAll();
 }
