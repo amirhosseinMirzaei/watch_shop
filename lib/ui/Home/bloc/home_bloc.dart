@@ -6,8 +6,6 @@ import 'package:nike2/data/product.dart';
 import 'package:nike2/data/rep/banner_repository.dart';
 import 'package:nike2/data/rep/product_repository.dart';
 
-
-
 part 'home_event.dart';
 part 'home_state.dart';
 
@@ -30,8 +28,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               banners: banners,
               latestProducts: latestProducts,
               popularProducts: popularProducts));
-        } catch (e) {
-          emit(HomeError(exception: e is AppException ? e : AppException()));
+        } on AppException catch (e) {
+          emit(HomeError(exception: e));
         }
       }
     });

@@ -11,7 +11,7 @@ part 'comment_list_state.dart';
 
 class CommentListBloc extends Bloc<CommentListEvent, CommentListState> {
   final ICommentRepository repository;
-  final int productId;
+  final String productId;
 
   CommentListBloc({required this.repository, required this.productId})
       : super(CommentListLoading()) {
@@ -22,7 +22,7 @@ class CommentListBloc extends Bloc<CommentListEvent, CommentListState> {
           final comments = await repository.getAll(productId: productId);
           emit(CommentListSuccess(comments));
         } catch (e) {
-          emit(CommentListError(AppException()));
+          emit(CommentListError(AppException(message: e.toString())));
         }
       }
     });

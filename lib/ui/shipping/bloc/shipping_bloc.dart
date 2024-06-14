@@ -18,7 +18,7 @@ class ShippingBloc extends Bloc<ShippingEvent, ShippingState> {
           final result = await repository.create(event.params);
           emit(ShippingSuccess(result: result));
         } catch (e) {
-          emit(ShippingError(exception: AppException()));
+          emit(ShippingError(exception: AppException(message: e.toString())));
         }
       }
     });

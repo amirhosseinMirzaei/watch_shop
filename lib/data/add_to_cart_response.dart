@@ -1,5 +1,5 @@
 class AddToCartResponse {
-  final int productId;
+  final String productId;
   final int count;
 
   AddToCartResponse(this.productId, this.count);

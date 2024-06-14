@@ -1,10 +1,9 @@
 
 
 import 'package:nike2/data/banner.dart';
-import 'package:nike2/data/common/http_client.dart';
 import 'package:nike2/data/source/banner_data_source.dart';
 
-final bannerRepository = BannerRepository(BannerRemoteDataSource(httpClient));
+final bannerRepository = BannerRepository(BannerRemoteDataSource());
 
 abstract class IBannerRepository {
   Future<List<BannerEntity>> getAll();

@@ -20,7 +20,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           cartRepository.count();
           emit(ProductAddToCartSuccess());
         } catch (e) {
-          emit(ProductAddToCartError(AppException()));
+          emit(ProductAddToCartError(AppException(message: e.toString())));
         }
       }
     });

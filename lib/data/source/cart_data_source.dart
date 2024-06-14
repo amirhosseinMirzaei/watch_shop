@@ -2,25 +2,24 @@ import 'package:nike2/data/cart_response.dart';
 // import 'package:nike2/data/cart_response.dart';
 
 abstract class ICartDataSource {
-  void add(int productId, int count);
-  void changeCount(int cartItemId, int count);
-  void delete(int cartItemId);
+  void add(String productId, int count);
+  void changeCount(String productId, int count);
+  void delete(int productId);
   int count();
   CartResponse getAll();
 }
 
 class CartRemoteDataSource implements ICartDataSource {
-  @override
   final CartResponse cart = CartResponse([]);
 
   @override
-  void add(int productId, int count) {
+  void add(String productId, int count) {
     // cart.cartItems.
     // return AddToCartResponse(productId, count);
   }
 
   @override
-  void changeCount(int productId, int count) {
+  void changeCount(String productId, int count) {
     for (var i = 0; i < cart.cartItems.length; i++) {
       if (cart.cartItems[i].id == productId) {
         cart.cartItems[i].count = count;

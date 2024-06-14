@@ -82,7 +82,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             final newCount = event is IncreaseCountButtonIsClicked
                 ? ++successState.cartResponse.cartItems[index].count
                 : --successState.cartResponse.cartItems[index].count;
-            cartRepository.changeCount(cartItemId, newCount);
+            cartRepository.changeCount(cartItemId.toString(), newCount);
             cartRepository.count();
 
             successState.cartResponse.cartItems
@@ -112,7 +112,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartSuccess(result));
       }
     } catch (e) {
-      emit(CartError(AppException()));
+      emit(CartError(AppException(message: e.toString())));
     }
   }
 

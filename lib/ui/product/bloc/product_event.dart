@@ -10,7 +10,7 @@ abstract class ProductEvent extends Equatable {
 }
 
 class CartAddButtonIsClicked extends ProductEvent{
-final int productId;
+final String productId;
 
  const CartAddButtonIsClicked(this.productId);
 

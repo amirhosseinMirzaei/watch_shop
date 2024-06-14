@@ -20,7 +20,7 @@ class PaymentReceiptBloc
           final result = await repository.getPaymentReceipt(event.orderId);
           emit(PaymentReceiptSuccess(paymentReceiptData: result));
         } catch (e) {
-          emit(PaymentReceiptError(exception: AppException()));
+          emit(PaymentReceiptError(exception: AppException(message: e.toString())));
         }
       }
     });

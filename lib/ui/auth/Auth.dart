@@ -81,7 +81,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/img/nike_logo.png',
+                        'assets/img/watch.png',
                         color: Colors.white,
                         width: 120,
                       ),

@@ -21,7 +21,7 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
               sort: event.sort,
               sortNames: ProductSort.names));
         } catch (e) {
-          emit(ProductListError(exception: AppException()));
+          emit(ProductListError(exception: AppException(message: e.toString())));
         }
       }
     });

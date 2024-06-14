@@ -8,7 +8,7 @@ import 'package:nike2/ui/widgets/errors.dart';
 
 
 class CommentList extends StatelessWidget {
-  final int productId;
+  final String productId;
 
   const CommentList({super.key, required this.productId});
   @override

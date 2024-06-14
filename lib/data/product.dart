@@ -1,3 +1,5 @@
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
+
 class ProductSort {
   static const int latest = 0;
   static const int popular = 1;
@@ -12,20 +14,20 @@ class ProductSort {
 }
 
 class ProductEntity {
-  final int id;
+  final String id;
   final String title;
   final String imageUrl;
   final int price;
   final int discount;
   final int previousPrice;
 
-  ProductEntity.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        title = json['title'],
-        imageUrl = json['image'],
-        price = json['previous_price'] == null
-            ? json['price'] - json['discount']
-            : json['price'],
-        previousPrice = json['previous_price'] ?? json['price'],
-        discount = json['discount'];
+  ProductEntity.fromObject(ParseObject object)
+      : id = object.get('objectId'),
+        title = object.get('title'),
+        imageUrl = object.get('imageUrl'),
+        price = object.get('previousPrice') == null
+            ? object.get('price') - object.get('discount')
+            : object.get('price'),
+        previousPrice = object.get('previousPrice') ?? object.get('price'),
+        discount = object.get('discount');
 }

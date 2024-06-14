@@ -25,7 +25,7 @@ class AuthRemoteDataSource
     if (!response.success) throw AppException(message: response.error!.message);
 
     final String? refreshToken =
-        (response.result as Map).keys.contains("refreshToken")
+        (response.result as ParseObject).containsKey("refreshToken")
             ? response.result["refreshToken"]
             : null;
 
@@ -34,12 +34,12 @@ class AuthRemoteDataSource
       ApiKeys.parseServerUrl,
       clientKey: ApiKeys.clientKey,
       autoSendSessionId: true,
-      sessionId: response.result["sessionToken"],
+      sessionId: (response.result as ParseObject).get("sessionToken"),
       debug: true,
     );
 
     return AuthInfo(
-        response.result["sessionToken"],
+        (response.result as ParseObject).get("sessionToken"),
         // response.result["refreshToken"],
         refreshToken,
         username);
@@ -64,7 +64,6 @@ class AuthRemoteDataSource
 
   @override
   Future<AuthInfo> signUp(String username, String password) async {
-
     user = ParseUser(username, password, username);
     final ParseResponse response = await user!.signUp();
     if (!response.success) throw AppException(message: response.error!.message);
@@ -77,5 +76,4 @@ class AuthRemoteDataSource
     final resp = await user!.logout();
     return resp.success;
   }
-
 }

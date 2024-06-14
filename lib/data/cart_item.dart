@@ -1,5 +1,5 @@
-
 import 'package:nike2/data/product.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class CartItemEntity {
   final ProductEntity product;
@@ -8,15 +8,15 @@ class CartItemEntity {
   bool deleteButtonLoading = false;
   bool changeCountLoading = false;
 
-  CartItemEntity.fromJson(Map<String, dynamic> json)
-      : product = ProductEntity.fromJson(json['product']),
-        id = json['cart_item_id'],
-        count = json['count'];
+  CartItemEntity.fromObject(ParseObject object)
+      : product = ProductEntity.fromObject(object.get('product')),
+        id = object.get('cart_item_id'),
+        count = object.get('count');
 
-  static List<CartItemEntity> parseJsonArray(List<dynamic> jsonArray) {
+  static List<CartItemEntity> parseObjectArray(List<ParseObject> objectArray) {
     final List<CartItemEntity> cartItems = [];
-    for (var element in jsonArray) {
-      cartItems.add(CartItemEntity.fromJson(element));
+    for (var element in objectArray) {
+      cartItems.add(CartItemEntity.fromObject(element));
     }
     return cartItems;
   }

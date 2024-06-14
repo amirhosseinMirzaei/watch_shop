@@ -1,4 +1,5 @@
 import 'package:nike2/data/cart_item.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 class CartResponse {
   final List<CartItemEntity> cartItems;
@@ -14,9 +15,9 @@ class CartResponse {
     shippingCost = payablePrice >= 250000 ? 0 : 30000;
   }
 
-  CartResponse.fromJson(Map<String, dynamic> json)
-      : cartItems = CartItemEntity.parseJsonArray(json['cart_items']),
-        payablePrice = json['payable_price'],
-        totalPrice = json['total_price'],
-        shippingCost = json['shipping_cost'];
+  CartResponse.fromObject(ParseObject object)
+      : cartItems = CartItemEntity.parseObjectArray(object['cart_items']),
+        payablePrice = object.get('payable_price'),
+        totalPrice = object.get('total_price'),
+        shippingCost = object.get('shipping_cost');
 }

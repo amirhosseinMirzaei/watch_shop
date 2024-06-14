@@ -12,10 +12,10 @@ class CartRepository implements ICartRepository {
 
   CartRepository(this.dataSource);
   @override
-  void add(int productId, count) => dataSource.add(productId, count);
+  void add(String productId, count) => dataSource.add(productId, count);
 
   @override
-  void changeCount(int productId, int count) {
+  void changeCount(String productId, int count) {
     dataSource.changeCount(productId, count);
   }
 

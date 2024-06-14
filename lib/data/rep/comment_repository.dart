@@ -7,7 +7,7 @@ import 'package:nike2/data/source/comment_data_source.dart';
 
 final commentRepository=CommentRepository(CommentRemoteDataSource(httpClient));
 abstract class ICommentRepository {
-  Future<List<CommentEntity>> getAll({required int productId});
+  Future<List<CommentEntity>> getAll({required String productId});
 }
 
 class CommentRepository implements ICommentRepository {
@@ -15,6 +15,6 @@ class CommentRepository implements ICommentRepository {
 
   CommentRepository(this.dataSource);
   @override
-  Future<List<CommentEntity>> getAll({required int productId}) =>
+  Future<List<CommentEntity>> getAll({required String productId}) =>
       dataSource.getAll(productId: productId);
 }

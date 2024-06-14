@@ -5,7 +5,7 @@ import '../../common/exceptions.dart';
 mixin HttpResponseValidator{
  validateResponse(Response response) {
     if (response.statusCode != 200) {
-      throw AppException();
+      throw AppException(message: 'status code: ${response.statusCode}');
     }
   }
 

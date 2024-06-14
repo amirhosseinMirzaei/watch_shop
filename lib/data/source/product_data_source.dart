@@ -1,40 +1,56 @@
-import 'package:dio/dio.dart';
-import 'package:nike2/data/common/response_validator.dart';
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:nike2/common/exceptions.dart';
 import 'package:nike2/data/product.dart';
-
-
-
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 abstract class IProductDataSource {
   Future<List<ProductEntity>> getAll(int sort);
   Future<List<ProductEntity>> search(String searchTerm);
 }
 
-class ProductRemoteDataSource with HttpResponseValidator implements IProductDataSource {
-  final Dio httpClient;
-
-  ProductRemoteDataSource(this.httpClient);
+class ProductRemoteDataSource implements IProductDataSource {
   @override
   Future<List<ProductEntity>> getAll(int sort) async {
-    final response = await httpClient.get('product/list?sort=$sort');
-    validateResponse(response);
-    final products = <ProductEntity>[];
-    for (var element in (response.data as List)) {
-      products.add(ProductEntity.fromJson(element));
+    final ParseObject productsOnServer = ParseObject("Products");
+    debugPrint("Getting Products from server...");
+    final List<ProductEntity> products = [];
+    try {
+      final ParseResponse data = await productsOnServer.getAll();
+      if (data.results != null) {
+        for (var object in data.results!) {
+          debugPrint(object.toString());
+          ProductEntity prod = ProductEntity.fromObject(object);
+          products.add(prod);
+        }
+      }
+    } catch (error) {
+      throw AppException(message: error.toString());
     }
+
     return products;
   }
 
   @override
   Future<List<ProductEntity>> search(String searchTerm) async {
-    final response = await httpClient.get('product/search?q=$searchTerm');
-    validateResponse(response);
-    final products = <ProductEntity>[];
-    for (var element in (response.data as List)) {
-      products.add(ProductEntity.fromJson(element));
+    final List<ProductEntity> products = [];
+
+    try {
+      final ParseObject productsOnServer = ParseObject("Products");
+      final parseQuery = QueryBuilder<ParseObject>(productsOnServer);
+      parseQuery.whereContains('title', searchTerm);
+      final ParseResponse response = await parseQuery.query();
+
+      if (response.success && response.results != null) {
+        final products = <ProductEntity>[];
+        for (var element in response.result) {
+          products.add(ProductEntity.fromObject(element));
+        }
+      }
+    } catch (error) {
+      throw AppException(message: error.toString());
     }
     return products;
   }
-
-  
 }

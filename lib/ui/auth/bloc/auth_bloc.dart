@@ -4,7 +4,6 @@ import 'package:nike2/common/exceptions.dart';
 import 'package:nike2/data/rep/auth_repository.dart';
 import 'package:nike2/data/rep/cart_repository.dart';
 
-
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -31,8 +30,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           isLoginMode = !isLoginMode;
           emit(AuthInitial(isLoginMode));
         }
-      } catch (e) {
-        emit(AuthError(isLoginMode, AppException()));
+      } on AppException catch (e) {
+        emit(AuthError(isLoginMode, e));
       }
     });
   }

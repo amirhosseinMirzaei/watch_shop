@@ -24,17 +24,24 @@ class AuthRepository implements IAuthRepository {
   );
   @override
   Future<void> login(String username, String password) async {
-    final AuthInfo authInfo = await dataSource.login(username, password);
-    _persistAuthTokens(authInfo);
-
-    debugPrint("access token is: ${authInfo.accessToken}");
+    try {
+      final AuthInfo authInfo = await dataSource.login(username, password);
+      _persistAuthTokens(authInfo);
+      debugPrint("access token is: ${authInfo.accessToken}");
+    } catch (e) {
+      throw AppException(message: e.toString());
+    }
   }
 
   @override
   Future<void> signUp(String username, String password) async {
-    final AuthInfo authInfo = await dataSource.signUp(username, password);
-    _persistAuthTokens(authInfo);
-    debugPrint("access token is: ${authInfo.accessToken}");
+    try {
+      final AuthInfo authInfo = await dataSource.signUp(username, password);
+      _persistAuthTokens(authInfo);
+      debugPrint("access token is: ${authInfo.accessToken}");
+    } catch (e) {
+      throw AppException(message: e.toString());
+    }
   }
 
   @override
@@ -48,38 +55,51 @@ class AuthRepository implements IAuthRepository {
   }
 
   Future<void> _persistAuthTokens(AuthInfo authInfo) async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    sharedPreferences.setString("accessToken", authInfo.accessToken);
-    if (authInfo.refreshToken != null) {
-      sharedPreferences.setString("refreshToken", authInfo.refreshToken!);
+    try {
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString("accessToken", authInfo.accessToken);
+      if (authInfo.refreshToken != null) {
+        sharedPreferences.setString("refreshToken", authInfo.refreshToken!);
+      }
+      sharedPreferences.setString("email", authInfo.email);
+      authChangeNotifier.value =
+          AuthInfo(authInfo.accessToken, authInfo.refreshToken, authInfo.email);
+    } catch (e) {
+      throw AppException(message: e.toString());
     }
-    sharedPreferences.setString("email", authInfo.email);
-    authChangeNotifier.value =
-        AuthInfo(authInfo.accessToken, authInfo.refreshToken, authInfo.email);
   }
 
   Future<void> loadAuthInfo() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    final String accessToken = sharedPreferences.getString("accessToken") ?? '';
+    try {
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      final String accessToken =
+          sharedPreferences.getString("accessToken") ?? '';
 
-    final String? refreshToken = sharedPreferences.getString("refreshToken");
-    if (accessToken.isNotEmpty) {
-      authChangeNotifier.value = AuthInfo(
-          accessToken, refreshToken, sharedPreferences.getString('email')!);
+      final String? refreshToken = sharedPreferences.getString("refreshToken");
+      if (accessToken.isNotEmpty) {
+        authChangeNotifier.value = AuthInfo(
+            accessToken, refreshToken, sharedPreferences.getString('email')!);
+      }
+    } catch (e) {
+      throw AppException(message: e.toString());
     }
   }
 
   @override
   Future<void> signOut() async {
-    final sucess = await dataSource.logout();
-    if (!sucess) {
-      throw AppException(message: "Could not logout, check connection!");
+    try {
+      final sucess = await dataSource.logout();
+      if (!sucess) {
+        throw AppException(message: "Could not logout, check connection!");
+      }
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.clear();
+      authChangeNotifier.value = null;
+    } catch (e) {
+      throw AppException(message: e.toString());
     }
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    await sharedPreferences.clear();
-    authChangeNotifier.value = null;
   }
 }
