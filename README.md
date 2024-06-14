@@ -1,4 +1,4 @@
-# ShopApp
+# Watch Shop
 A watch shop application with Flutter, using Bloc as state management and parse server back4app as backend.
 
 <div align="center">
