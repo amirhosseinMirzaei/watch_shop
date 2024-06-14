@@ -14,7 +14,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController usernameController =
-      TextEditingController(text: "test@gmail.com");
+      TextEditingController(text: "mahdi");
   final TextEditingController passwordController =
       TextEditingController(text: "123456");
   @override
@@ -99,7 +99,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       Text(
                         state.isLoginMode
                             ? 'لطفا وارد حساب کاربری خود شوید'
-                            : 'ایمیل و رمز عبور خود را تعیین کنید',
+                            : 'نام کاربری و رمز عبور خود را تعیین کنید',
                         style:
                             const TextStyle(color: onBackground, fontSize: 16),
                       ),
@@ -108,9 +108,9 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       TextField(
                         controller: usernameController,
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.name,
                         decoration: const InputDecoration(
-                          label: Text('آدرس ایمیل'),
+                          label: Text('نام کاربری'),
                         ),
                       ),
                       const SizedBox(
@@ -125,7 +125,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          // await authRepository.login("test@gmail.com", "123456");
+                          // await authRepository.login("mahdi", "123456");
                           BlocProvider.of<AuthBloc>(context).add(
                               AuthButtonIsClicked(usernameController.text,
                                   passwordController.text));

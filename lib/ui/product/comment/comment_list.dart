@@ -82,7 +82,7 @@ class CommentItem extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                    data.email,
+                    data.username,
                     style: themeData.textTheme.bodySmall,
                   )
                 ],

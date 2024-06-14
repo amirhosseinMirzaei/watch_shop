@@ -62,9 +62,9 @@ class AuthRepository implements IAuthRepository {
       if (authInfo.refreshToken != null) {
         sharedPreferences.setString("refreshToken", authInfo.refreshToken!);
       }
-      sharedPreferences.setString("email", authInfo.email);
+      sharedPreferences.setString("username", authInfo.username);
       authChangeNotifier.value =
-          AuthInfo(authInfo.accessToken, authInfo.refreshToken, authInfo.email);
+          AuthInfo(authInfo.accessToken, authInfo.refreshToken, authInfo.username);
     } catch (e) {
       throw AppException(message: e.toString());
     }
@@ -80,7 +80,7 @@ class AuthRepository implements IAuthRepository {
       final String? refreshToken = sharedPreferences.getString("refreshToken");
       if (accessToken.isNotEmpty) {
         authChangeNotifier.value = AuthInfo(
-            accessToken, refreshToken, sharedPreferences.getString('email')!);
+            accessToken, refreshToken, sharedPreferences.getString('username')!);
       }
     } catch (e) {
       throw AppException(message: e.toString());

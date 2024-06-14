@@ -19,7 +19,7 @@ class AuthRemoteDataSource
 
   @override
   Future<AuthInfo> login(String username, String password) async {
-    user = ParseUser(username, password, null);
+    user = ParseUser(username.toLowerCase(), password, null);
     final ParseResponse response = await user!.login();
 
     if (!response.success) throw AppException(message: response.error!.message);
@@ -42,7 +42,7 @@ class AuthRemoteDataSource
         (response.result as ParseObject).get("sessionToken"),
         // response.result["refreshToken"],
         refreshToken,
-        username);
+        username.toLowerCase());
   }
 
 // not implemented
@@ -64,8 +64,8 @@ class AuthRemoteDataSource
 
   @override
   Future<AuthInfo> signUp(String username, String password) async {
-    user = ParseUser(username, password, username);
-    final ParseResponse response = await user!.signUp();
+    user = ParseUser(username.toLowerCase(), password, null);
+    final ParseResponse response = await user!.signUp(allowWithoutEmail: true);
     if (!response.success) throw AppException(message: response.error!.message);
 
     return login(username, password);

@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:nike2/data/add_to_cart_response.dart';
 import 'package:nike2/data/cart_item.dart';
@@ -84,8 +82,7 @@ class CartRemoteDataSource implements ICartDataSource {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final jsonData = sp.getString('cart');
     if (jsonData != null) {
-      cartItems = Map.from(jsonDecode(jsonData));
-
+      cartItems = Map<String, int>.from(jsonDecode(jsonData));
     }
 
     final items = <CartItemEntity>[];

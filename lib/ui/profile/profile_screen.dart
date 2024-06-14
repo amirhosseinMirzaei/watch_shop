@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
                       'assets/img/watch.png',
                     ),
                   ),
-                  Text(isLogin ? authInfo.email : 'کاربر مهمان'),
+                  Text(isLogin ? authInfo.username : 'کاربر مهمان'),
                   const SizedBox(
                     height: 32,
                   ),
